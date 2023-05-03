@@ -5,7 +5,21 @@ import Stats from 'three/examples/jsm/libs/stats.module'
 
 let gyroscope = new Gyroscope({ frequency: 60 });
 
+window.addEventListener("deviceorientation", handleOrientation, true);
+function handleOrientation(event) {
+  var absolute = event.absolute;
+  var alpha    = event.alpha;
+  var beta     = event.beta;
+  var gamma    = event.gamma;
+  // Do stuff with the new orientation data
+  setInterval(() => {
+    title2.innerHTML += `-${absolute}-${alpha}--${beta}--${gamma}-`
+  }, 1000)
+}
+
+
 let title = document.querySelector('.title');
+let title2 = document.querySelector('.title2');
 
 gyroscope.addEventListener("reading", (e) => {
   title.innerHTML += `${gyroscope.x}-${gyroscope.y}-${gyroscope.z}`
