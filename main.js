@@ -5,7 +5,10 @@ import Stats from 'three/examples/jsm/libs/stats.module'
 
 let gyroscope = new Gyroscope({ frequency: 60 });
 
+let title = document.querySelector('.title');
+
 gyroscope.addEventListener("reading", (e) => {
+  title.innerHTML += `${gyroscope.x}-${gyroscope.y}-${gyroscope.z}`
   console.log(`Angular velocity along the X-axis ${gyroscope.x}`);
   console.log(`Angular velocity along the Y-axis ${gyroscope.y}`);
   console.log(`Angular velocity along the Z-axis ${gyroscope.z}`);
