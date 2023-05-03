@@ -44,7 +44,9 @@ try {
 }
 
 let title = document.querySelector('.title');
-let title2 = document.querySelector('.title2');
+let title2 = document.querySelector('h2');
+console.log(title)
+title2.innerHTML = "dzrez";
 
 gyroscope.addEventListener("reading", (e) => {
   title.innerHTML += `${gyroscope.x}-${gyroscope.y}-${gyroscope.z}`
@@ -110,6 +112,17 @@ loader.load(
     '/maze_2.0.stl',
     function (geometry) {
         const mesh = new THREE.Mesh(geometry, material)
+
+        gyroscope.addEventListener("reading", (e) => {
+          title.innerHTML += `${gyroscope.x}-${gyroscope.y}-${gyroscope.z}`
+          console.log(`Angular velocity along the X-axis ${gyroscope.x}`);
+          console.log(`Angular velocity along the Y-axis ${gyroscope.y}`);
+          console.log(`Angular velocity along the Z-axis ${gyroscope.z}`);
+          mesh.rotateX(gyroscope.x);
+          mesh.rotateY(gyroscope.y);
+        });
+        gyroscope.start();
+
         scene.add(mesh)
     },
     (xhr) => {
@@ -129,7 +142,7 @@ function onWindowResize() {
 }
 
 const stats = new Stats()
-document.body.appendChild(stats.dom)
+
 
 function animate() {
     requestAnimationFrame(animate)
